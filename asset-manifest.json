@@ -1,10 +1,10 @@
 {
   "files": {
-    "main.js": "/tracked-protocols/static/js/main.af2a32a5.js",
+    "main.js": "/tracked-protocols/static/js/main.8898a82b.js",
     "index.html": "/tracked-protocols/index.html",
-    "main.af2a32a5.js.map": "/tracked-protocols/static/js/main.af2a32a5.js.map"
+    "main.8898a82b.js.map": "/tracked-protocols/static/js/main.8898a82b.js.map"
   },
   "entrypoints": [
-    "static/js/main.af2a32a5.js"
+    "static/js/main.8898a82b.js"
   ]
 }
