@@ -1,5 +1,5 @@
 import { useQuery } from 'react-query';
-import { startCase } from 'lodash';
+import { startCase, kebabCase } from 'lodash';
 
 const getData = async () => {
   const [
@@ -45,11 +45,10 @@ const getData = async () => {
   );
 
   const normalizedYields = Object.fromEntries(
-    yields?.data.map((y) => [startCase(y.project), y])
+    yields?.data.map((y) => [y.project, y])
   );
 
-  console.log(governance, protcolsList);
-
+  console.log(normalizedYields, protcolsList);
   const normalizedVolume = Object.fromEntries(
     volume?.protocols?.map((protocol) => [
       protocol?.defillamaId,
@@ -84,7 +83,9 @@ const getData = async () => {
           !!normalizedExpenses[id] ||
           !!normalizedExpenses[protocol?.parentProtocol],
         emissions: !!normalizedEmissions[protocol?.name],
-        yields: !!normalizedYields[protocol?.name],
+        yields:
+          !!normalizedYields[protocol?.name.toLowerCase()] ||
+          !!normalizedYields[kebabCase(protocol?.name.toLowerCase())],
         users: !!users[id],
         governance:
           !!governance[
