@@ -48,7 +48,6 @@ const getData = async () => {
     yields?.data.map((y) => [y.project, y])
   );
 
-  console.log(normalizedYields, protcolsList);
   const normalizedVolume = Object.fromEntries(
     volume?.protocols?.map((protocol) => [
       protocol?.defillamaId,
@@ -85,7 +84,12 @@ const getData = async () => {
         emissions: !!normalizedEmissions[protocol?.name],
         yields:
           !!normalizedYields[protocol?.name.toLowerCase()] ||
-          !!normalizedYields[kebabCase(protocol?.name.toLowerCase())],
+          !!normalizedYields[
+            kebabCase(protocol?.name.toLowerCase())
+          ] ||
+          !!normalizedYields[
+            protocol?.name.toLowerCase().trim().replace(' ', '-')
+          ],
         users: !!users[id],
         governance:
           !!governance[
