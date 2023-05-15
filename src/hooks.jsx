@@ -12,6 +12,7 @@ const getData = async () => {
     governance,
     expenses,
     emissions,
+    yields,
   ] = await Promise.all([
     fetch('https://api.llama.fi/lite/protocols2').then((r) =>
       r.json()
@@ -30,6 +31,7 @@ const getData = async () => {
     fetch(
       'https://defillama-datasets.llama.fi/emissionsProtocolsList'
     ).then((r) => r.json()),
+    fetch('https://yields.llama.fi/pools').then((r) => r.json()),
   ]);
 
   const normalizedFees = Object.fromEntries(
@@ -41,6 +43,12 @@ const getData = async () => {
       treasury,
     ])
   );
+
+  const normalizedYields = Object.fromEntries(
+    yields?.data.map((y) => [startCase(y.project), y])
+  );
+
+  console.log(governance, protcolsList);
 
   const normalizedVolume = Object.fromEntries(
     volume?.protocols?.map((protocol) => [
@@ -76,6 +84,12 @@ const getData = async () => {
           !!normalizedExpenses[id] ||
           !!normalizedExpenses[protocol?.parentProtocol],
         emissions: !!normalizedEmissions[protocol?.name],
+        yields: !!normalizedYields[protocol?.name],
+        users: !!users[id],
+        governance:
+          !!governance[
+            protocol?.governanceID?.[0]?.replace('snapshot:', '')
+          ],
       };
     }
   );

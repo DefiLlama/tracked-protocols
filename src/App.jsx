@@ -6,6 +6,8 @@ import { capitalize } from 'lodash';
 const { Header, Content } = Layout;
 const { Title } = Typography;
 
+const withVolume = ['Dexes', 'NFT Marketplace', 'Derivatives'];
+
 const columns = [
   {
     title: 'Name',
@@ -17,6 +19,14 @@ const columns = [
     dataIndex: 'tvl',
     key: 'tvl',
     sorter: (a, b) => a.tvl - b.tvl,
+    render: (val) => (
+      <span>
+        {Intl.NumberFormat('en-US', {
+          notation: 'compact',
+          maximumFractionDigits: 2,
+        }).format(val)}
+      </span>
+    ),
   },
   ...[
     'volume',
@@ -25,6 +35,9 @@ const columns = [
     'raises',
     'expenses',
     'emissions',
+    'users',
+    'yields',
+    'governance',
   ].map((key) => ({
     title: capitalize(key),
     dataIndex: key,
@@ -34,12 +47,14 @@ const columns = [
       { text: 'False', value: false },
     ],
     onFilter: (value, record) => record.volume === value,
-    render: (key) =>
-      key ? (
+    render: (k, record) => {
+      return key === 'volume' &&
+        !withVolume.includes(record.category) ? null : k ? (
         <CheckOutlined style={{ color: 'green' }} />
       ) : (
         <CloseOutlined style={{ color: 'red' }} />
-      ),
+      );
+    },
   })),
 ];
 
