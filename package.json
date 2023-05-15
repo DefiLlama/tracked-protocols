@@ -1,5 +1,6 @@
 {
   "name": "tracked_protocols",
+  "homepage": "https://defillama.github.io/tracked-protocols/",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
