@@ -1,4 +1,10 @@
+## Use
+
 Visit at https://defillama.github.io/tracked-protocols/
+
+---
+
+## Build
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
